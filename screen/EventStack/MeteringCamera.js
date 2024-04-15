@@ -1,10 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import { useState, useRef, useEffect} from "react";
 import { Camera, CameraType, requestCameraPermissionsAsync } from "expo-camera";
+import { DeviceEventEmitter } from 'react-native';
 
 const MeteringCamera = () => {
     const [type, setType] = useState(CameraType.back);
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
+    const cameraRef = useRef(null);
     
     useEffect(() => {
       ( async () => {
@@ -19,6 +21,21 @@ const MeteringCamera = () => {
       ));
     }
 
+    const handleTakingPicture = async () => {
+      if (!cameraRef.current) {
+        console.error("Camera reference not available");
+        return;
+      }
+      try {
+        const photoData = await cameraRef.current.takePictureAsync();
+        console.log("Image captured:", photoData);
+        DeviceEventEmitter.emit('photoCaptured', photoData)
+      } catch (error) {
+        console.error("Failed to capture image:", error);
+      }
+    };
+
+
     if (hasCameraPermission === null) {
       return <View><Text>Requesting camera permission...</Text></View>;
     }
@@ -28,8 +45,8 @@ const MeteringCamera = () => {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} autoFocus={true}/>
-      <TouchableOpacity style={styles.captureContainer}>
+      <Camera style={styles.camera} type={type} autoFocus={true} ref={cameraRef}/>
+      <TouchableOpacity style={styles.captureContainer} onPress={handleTakingPicture}>
         <View style={styles.captureBorder}>
           <View style={styles.captureButton} />
         </View>

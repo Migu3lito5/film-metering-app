@@ -1,16 +1,35 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, Text, View, Button} from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, StyleSheet, Text, View, Button, DeviceEventEmitter} from "react-native";
 import CameraButton from "../../components/CameraButton";
 
 
 const Home = () => {
+  const [capturedPhoto, setCapturedPhoto] = useState(null);
+
+  useEffect(() => {
+    const subscription = DeviceEventEmitter.addListener('photoCaptured', photoData => {
+      console.log("Image from Home: ", photoData);
+      setCapturedPhoto(photoData);
+    });
+    return () => {
+      subscription.remove();
+    }
+  })
+
   return(
     <SafeAreaView style={styles.container}>
       <Text>Home!</Text>
       <Text>HI</Text>
-      <View style={styles.buttonContainer}>
-        <CameraButton/>
-      </View>
+      {capturedPhoto && (
+                <View>
+                    <Text>Image URI: {capturedPhoto.uri}</Text>
+                    <Text>Width: {capturedPhoto.width}</Text>
+                    <Text>Height: {capturedPhoto.height}</Text>
+                </View>
+            )}
+        <View style={styles.buttonContainer}>
+          <CameraButton/>
+        </View>
     </SafeAreaView>
   )
 }

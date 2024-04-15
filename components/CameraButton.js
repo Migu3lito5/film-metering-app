@@ -1,13 +1,18 @@
 import { Pressable, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
 
 const CameraButton = () => {
 
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
+  
+  const handleCameraPress = () => {
+    navigation.navigate("Camera");
+  };
+
 
   return (
-    <Pressable style={styles.button} onPress={()=>navigate("Camera")}>
+    <Pressable style={styles.button} onPress={handleCameraPress}>
       <Text style={styles.text}>Camera</Text>
     </Pressable>
   )
