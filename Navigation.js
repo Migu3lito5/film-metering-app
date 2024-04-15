@@ -42,7 +42,7 @@ function TabGroup() {
         switch (route.name) {
           
           case "HomeStack":
-            iconName = "camera";
+            iconName = "home-sharp";
             return (
             <View style={[styles.tabIcon, focused && styles.activeTabIcon]}>
               <Ionicons name={iconName} size={iconSize} color={iconColor} style={{ position: 'absolute' }}/>

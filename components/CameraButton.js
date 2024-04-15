@@ -15,8 +15,8 @@ const CameraButton = () => {
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: 68,
-    paddingVertical: 16,
+    paddingHorizontal: 100,
+    paddingVertical: 18,
     borderRadius: 20 ,
     elevation: 3,
     backgroundColor: '#61735B', 
