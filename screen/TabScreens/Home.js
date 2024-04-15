@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Button, DeviceEventEmitter} from "react-native";
+import { SafeAreaView, StyleSheet, Text, View,DeviceEventEmitter, Image} from "react-native";
 import CameraButton from "../../components/CameraButton";
 
 
@@ -25,6 +25,7 @@ const Home = () => {
                     <Text>Image URI: {capturedPhoto.uri}</Text>
                     <Text>Width: {capturedPhoto.width}</Text>
                     <Text>Height: {capturedPhoto.height}</Text>
+                    <Image source={{ uri: capturedPhoto.uri }} style={{ width: 200, height: 200 }} />
                 </View>
             )}
         <View style={styles.buttonContainer}>
