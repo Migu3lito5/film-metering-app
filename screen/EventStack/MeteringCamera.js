@@ -27,7 +27,9 @@ const MeteringCamera = () => {
         return;
       }
       try {
-        const photoData = await cameraRef.current.takePictureAsync();
+        const photoData = await cameraRef.current.takePictureAsync({
+          exif: true,
+        });
        // console.log("Image captured:", photoData);
         DeviceEventEmitter.emit('photoCaptured', photoData)
       } catch (error) {
@@ -45,7 +47,7 @@ const MeteringCamera = () => {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} autoFocus={true} ref={cameraRef}/>
+      <Camera style={styles.camera} type={type} autoFocus={true} ref={cameraRef} />
       <TouchableOpacity style={styles.captureContainer} onPress={handleTakingPicture}>
         <View style={styles.captureBorder}>
           <View style={styles.captureButton} />

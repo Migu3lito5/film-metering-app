@@ -9,6 +9,7 @@ const Home = () => {
   useEffect(() => {
     const subscription = DeviceEventEmitter.addListener('photoCaptured', photoData => {
       setCapturedPhoto(photoData);
+      console.log(photoData.exif)
     });
     return () => {
       subscription.remove();
@@ -25,6 +26,7 @@ const Home = () => {
         <View style={styles.buttonContainer}>
           <CameraButton/>
         </View>
+        
     </SafeAreaView>
   )
 }
