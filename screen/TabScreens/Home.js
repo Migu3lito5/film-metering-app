@@ -8,7 +8,6 @@ const Home = () => {
 
   useEffect(() => {
     const subscription = DeviceEventEmitter.addListener('photoCaptured', photoData => {
-      console.log("Image from Home: ", photoData);
       setCapturedPhoto(photoData);
     });
     return () => {
@@ -18,14 +17,9 @@ const Home = () => {
 
   return(
     <SafeAreaView style={styles.container}>
-      <Text>Home!</Text>
-      <Text>HI</Text>
       {capturedPhoto && (
-                <View>
-                    <Text>Image URI: {capturedPhoto.uri}</Text>
-                    <Text>Width: {capturedPhoto.width}</Text>
-                    <Text>Height: {capturedPhoto.height}</Text>
-                    <Image source={{ uri: capturedPhoto.uri }} style={{ width: 200, height: 200 }} />
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{ uri: capturedPhoto.uri }} />
                 </View>
             )}
         <View style={styles.buttonContainer}>
@@ -43,6 +37,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+
+  },
+  imageContainer: {
+    position: "absolute",
+    top: 40,
+    left: 10,
+    right: 10,
+    borderRadius: 30,
+    overflow: 'hidden',
+
+  },
+  image: {
+    width: "100%",
+    height: 350,
+    resizeMode: "cover",
   }
 });
 

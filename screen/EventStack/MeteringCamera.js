@@ -28,7 +28,7 @@ const MeteringCamera = () => {
       }
       try {
         const photoData = await cameraRef.current.takePictureAsync();
-        console.log("Image captured:", photoData);
+       // console.log("Image captured:", photoData);
         DeviceEventEmitter.emit('photoCaptured', photoData)
       } catch (error) {
         console.error("Failed to capture image:", error);
